@@ -17,7 +17,9 @@ cnx = st.connection("snowflake")
 session = cnx.session()
 
 My_df = session.table("SMOOTHIES.PUBLIC.FRUIT_OPTIONS").select(col('FRUIT_NAME'),col('SEARCH_ON'))
-st.dataframe(data = My_df, use_container_width=True)
+#st.dataframe(data = My_df, use_container_width=True)
+pd_df = My_df.to_pandas()
+st.dataframe(pd_df)
 st.stop()
 
 ingredients_list = st.multiselect(
