@@ -1,6 +1,5 @@
 #import python packages
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col, when_matched
 
 #App Code
@@ -9,7 +8,9 @@ st.write(
     """Orders that need to be filled.
     """)
 
-session = get_active_session()
+cnx = st.connection("snowflake")
+session = cnx.session()
+
 My_df = session.table("SMOOTHIES.PUBLIC.ORDERS").filter(col('ORDER_FILLED') == 0).collect()
 #st.dataframe(data = My_df, use_container_width=True)
 
